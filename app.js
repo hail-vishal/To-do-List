@@ -1,20 +1,19 @@
 //jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");                // reduces the amount of code for node.js
 const bodyParser = require("body-parser");         // used to access the data submitted through forms
 const mongoose = require("mongoose");              // for mongodb
 const _ = require("lodash");                       // used here capitalizing the first letter
-
 const app = express();
 
 // ejs -> shorthand for Embedded Javascript Templating
-// used here for list.ejs file to load as html
+// used here for list.ejs file to load ads html
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true})); // sytax for using the data of forms
 app.use(express.static("public")); // used for accessing the local files if deployed on a Server
 
-mongoose.connect('mongodb+srv://admin-vishal:Test123@cluster0.izphu.mongodb.net/todolistDB'); // port for mongodb connection
+mongoose.connect('mongodb+srv://' + process.env.USER_NAME + ':' + process.env.PASSWORD + '@cluster0.izphu.mongodb.net/todolistDB'); // port for mongodb connection
 
 const itemsSchema = {
   name: String
